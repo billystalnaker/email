@@ -609,10 +609,10 @@ $config['settings']['privilege_sources'] = array('user', 'group');
  */
 ###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 // Site title shown as 'from' header on emails.
-$config['email']['site_title'] = "HydroService";
+$config['email']['site_title'] = "Site Title";
 
 // Reply email shown as 'from' header on emails.
-$config['email']['reply_email'] = "info@hydroservice.org";
+$config['email']['reply_email'] = "info@example.com";
 
 /**
  * Type of email to send, options: 'html', 'text'.

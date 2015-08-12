@@ -184,7 +184,7 @@
                                         <td class="align_ctr">
                                             <?php if ($this->flexi_auth->is_privileged('Delete Users'))
                                             { ?>
-                                                <input type="checkbox" name="update_manifest_user[<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')]; ?>]" value="1"/>
+                                                <input type="checkbox" name="delete_user[<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')]; ?>]" value="1"/>
                                             <?php }
                                             else
                                             { ?>

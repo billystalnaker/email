@@ -33,7 +33,7 @@ $(function(){
 			selected='st_light';
 		}
 		search_params=$('#search_params').val();
-		redirect('/hydroservice/search/'+selected+'/'+search_params);
+		redirect('/search/'+selected+'/'+search_params);
 	});
 	//all data-tables used
 	if(typeof ($('#data_table'))!=='undefined'){
@@ -45,7 +45,7 @@ $(function(){
 		if(typeof $(this).data('identifier')!=='undefined'){
 			var params={};
 			params['identifier']=$(this).data('identifier');
-			$.post('/hydroservice/api/forgot_password', params, function(data){
+			$.post('/api/forgot_password', params, function(data){
 				if(data===1){
 					bootbox.alert('<h2>Yay!!</h2> Password email has been sent.');
 				}else{

@@ -53,10 +53,10 @@ if (!defined('BASEPATH'))
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = '';
-$db['default']['username'] = '';
-$db['default']['password'] = '';
-$db['default']['database'] = '';
+$db['default']['hostname'] = '192.185.4.151';
+$db['default']['username'] = 'bstalnak_email';
+$db['default']['password'] = 'e$f7UvJwF()-';
+$db['default']['database'] = 'bstalnak_test_email';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

@@ -226,7 +226,7 @@ $config['cache_path'] = '';
   | MUST set an encryption key.  See the user guide for info.
   |
  */
-$config['encryption_key'] = 'hydroservice_sessions';
+$config['encryption_key'] = 'my_sessions';
 
 /*
   |--------------------------------------------------------------------------
