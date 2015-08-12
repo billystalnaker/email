@@ -3,9 +3,9 @@
 $config['useragent']        = 'PHPMailer';              // Mail engine switcher: 'CodeIgniter' or 'PHPMailer'
 $config['protocol']         = 'smtp';                   // 'mail', 'sendmail', or 'smtp'
 $config['mailpath']         = '/usr/sbin/sendmail';
-$config['smtp_host']        = 'mail.onandoffagain.com';
-$config['smtp_user']        = 'contact@onandoffagain.com';
-$config['smtp_pass']        = '@RZ{z~Dd;d+5';
+$config['smtp_host']        = '';
+$config['smtp_user']        = '';
+$config['smtp_pass']        = '';
 $config['smtp_port']        = 25;
 $config['smtp_timeout']     = 5;                        // (in seconds)
 $config['smtp_crypto']      = '';                       // '' or 'tls' or 'ssl'
