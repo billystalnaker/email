@@ -52,6 +52,7 @@ class Module extends LF_Controller
                 break;
             case 'view':
             default:
+                $this->modules->get_states();
                 $this->modules->get_users();
                 $this->modules->get_manifests();
                 $this->modules->update_users();
@@ -81,6 +82,7 @@ class Module extends LF_Controller
             }
         }
         $this->load->model('modules');
+        $this->modules->get_states();
         $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
         switch ($action)
         {

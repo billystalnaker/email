@@ -130,6 +130,7 @@ class Account extends LF_Controller
 
     public function register()
     {
+        $this->load->model('modules');
         if ($this->input->post('register_user'))
         {
             $errors = array();
@@ -189,11 +190,21 @@ class Account extends LF_Controller
             {
                 $errors[] = "City is required.";
             }
-            $custom_data['upro_state'] = $this->input->post('upro_state');
-            if (trim($custom_data['upro_state']) == '')
+            $custom_data['upro_state_id'] = $this->input->post('upro_state_id');
+            if (intval($custom_data['upro_state_id']) <= 0)
             {
                 $errors[] = "State is required.";
             }
+            $custom_data['upro_address_line1'] = $this->input->post('upro_address_line1');
+            $custom_data['upro_address_line2'] = $this->input->post('upro_address_line2');
+            $custom_data['upro_race'] = $this->input->post('upro_race');
+            $custom_data['upro_height'] = $this->input->post('upro_height');
+            $custom_data['upro_weight'] = $this->input->post('upro_weight');
+            $custom_data['upro_shoe_size'] = $this->input->post('upro_shoe_size');
+            $custom_data['upro_shirt_size'] = $this->input->post('upro_shirt_size');
+            $custom_data['upro_jacket_size'] = $this->input->post('upro_jacket_size');
+            $custom_data['upro_pant_size'] = $this->input->post('upro_pant_size');
+            $custom_data['upro_pet'] = $this->input->post('upro_pet');
             if (empty($errors))
             {
                 $upro_body_image_id = $this->image_model->create_image($bf);
@@ -225,6 +236,7 @@ class Account extends LF_Controller
                 $this->data['errors'] = $errors;
             }
         }
+        $this->modules->get_states();
         $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
         $content = $this->load->view('account/register', $this->data, true);
         $this->data['content'] = $content;

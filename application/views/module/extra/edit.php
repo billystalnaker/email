@@ -65,7 +65,15 @@ if (!empty($message))
 
                     <div class="input-group col-md-9">
                         <span class="input-group-addon"><i class="fa-map-marker fa"></i></span>
-                        <input class="form-control" type="text" value="<?php echo set_value('update_user_state', $user['upro_state']) ?>" name="update_user_state">
+
+                        <select name="update_user_state_id" class="form-control">
+                            <?php foreach ($states as $state_id => $state)
+                            {
+                                ?>
+                                <option value="<?php echo $state_id?>" <?php echo set_value('update_user_state_id', $user['upro_state_id']) == $state_id ? 'SELECTED' : ''?>><?php echo $state?></option>
+                            <?php
+                            } ?>
+                        </select>
                     </div>
                 </div>
 

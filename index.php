@@ -163,7 +163,7 @@ define('EXT', '.php');
 
 // Path to the system folder
 define('BASEPATH', str_replace("\\", "/", $system_path));
-define('IMGPATH', realpath(BASEPATH . '../images').'/');
+define('IMGPATH', __DIR__ . '/images' . '/');
 // Path to the FPDF fonts
 define('FPDF_FONTPATH', 'public/fonts/font/');
 

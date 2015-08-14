@@ -20,6 +20,10 @@ class image_model extends LF_Model
     {
         $data = array();
         $this->fit_image_file_to_width($file->file_path, 400);
+        if (!is_dir(IMGPATH))
+        {
+            mkdir(IMGPATH);
+        }
         move_uploaded_file($file->file_path, IMGPATH . $file->file_name);
         $data['path'] = IMGPATH . $file->file_name;
         //path,image_id

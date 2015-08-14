@@ -81,7 +81,15 @@ if (!empty($message))
 
                     <div class="input-group col-md-9">
                         <span class="input-group-addon"><i class="fa-map-marker fa"></i></span>
-                        <input class="form-control" type="text" value="<?php echo set_value('insert_user_state') ?>" name="insert_user_state">
+
+                        <select name="insert_user_state_id" class="form-control">
+                            <?php foreach ($states as $state_id => $state)
+                            {
+                                ?>
+                                <option value="<?php echo $state_id?>" <?php echo set_value('insert_user_state_id') == $state_id ? 'SELECTED' : ''?>><?php echo $state?></option>
+                            <?php
+                            } ?>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -112,6 +120,7 @@ if (!empty($message))
 
                 <div class="form-group row">
                     <label class="col-md-3">Address Line 2:</label>
+
                     <div class="input-group col-md-9">
                         <span class="input-group-addon"><i class="fa-map-marker fa"></i></span>
                         <input class="form-control" type="text" value="<?php echo set_value('insert_user_address_line2') ?>" name="insert_user_address_line2">

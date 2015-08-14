@@ -37,7 +37,7 @@ class Modules extends LF_Model
             'upro_address_line1',
             'upro_address_line2',
             'upro_city',
-            'upro_state',
+            'upro_state_id',
             'upro_race',
             'upro_height',
             'upro_weight',
@@ -168,9 +168,9 @@ class Modules extends LF_Model
                 'label' => 'City',
                 'rules' => 'required'),
             array(
-                'field' => 'update_user_state',
+                'field' => 'update_user_state_id',
                 'label' => 'State',
-                'rules' => 'required'),
+                'rules' => 'required|integer'),
             array(
                 'field' => 'update_user_address_line1',
                 'label' => 'Address Line 1',
@@ -250,7 +250,7 @@ class Modules extends LF_Model
                 'upro_address_line2'                              => $this->input->post('update_user_address_line2'),
                 'upro_city'                                       => $this->input->post('update_user_city'),
                 'upro_race'                                       => $this->input->post('update_user_race'),
-                'upro_state'                                      => $this->input->post('update_user_state'),
+                'upro_state_id'                                      => $this->input->post('update_user_state_id'),
                 'upro_weight'                                     => $this->input->post('update_user_weight'),
                 'upro_height'                                     => $this->input->post('update_user_height'),
                 'upro_shoe_size'                                  => $this->input->post('update_user_shoe_size'),
@@ -459,9 +459,9 @@ class Modules extends LF_Model
                 'label' => 'City',
                 'rules' => 'required'),
             array(
-                'field' => 'insert_user_state',
+                'field' => 'insert_user_state_id',
                 'label' => 'State',
-                'rules' => 'required'),
+                'rules' => 'required|integer'),
             array(
                 'field' => 'insert_user_address_line1',
                 'label' => 'Address Line 1',
@@ -536,7 +536,7 @@ class Modules extends LF_Model
             $user_address_line2 = $this->input->post('insert_user_address_line2');
             $user_race = $this->input->post('insert_user_race');
             $user_city = $this->input->post('insert_user_city');
-            $user_state = $this->input->post('insert_user_state');
+            $user_state = $this->input->post('insert_user_state_id');
             $weight = $this->input->post('insert_user_weight');
             $height = $this->input->post('insert_user_height');
             $shoe_size = $this->input->post('insert_user_shoe_size');
@@ -553,7 +553,7 @@ class Modules extends LF_Model
                 'upro_address_line2'     => $user_address_line2,
                 'upro_city'              => $user_city,
                 'upro_race'              => $user_race,
-                'upro_state'             => $user_state,
+                'upro_state_id'             => $user_state,
                 'upro_weight'            => $weight,
                 'upro_height'            => $height,
                 'upro_shoe_size'         => $shoe_size,
@@ -631,6 +631,28 @@ class Modules extends LF_Model
             return $ret;
         }
         $this->data['manifests'] = $ret;
+    }
+
+    public function get_states($return = false, $for_select = true)
+    {
+
+// Select user data to be displayed.
+        $sql_select = array('id', 'abbreviation', 'name');
+        $ret = $this->db->select($sql_select)->get('states')->result_array();
+        if ($for_select)
+        {
+            $states = array();
+            foreach ($ret as $state)
+            {
+                $states[$state['id']] = $state['name'];
+            }
+            $ret = $states;
+        }
+        if ($return)
+        {
+            return $ret;
+        }
+        $this->data['states'] = $ret;
     }
 
     function get_group($group_id)

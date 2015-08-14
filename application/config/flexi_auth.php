@@ -80,7 +80,7 @@ $config['database']['user_acc']['columns']['date_added'] = 'uacc_date_added';
 
 // Custom columns can be added to the main user account table to enable library functions to handle additional custom data stored within the table.
 $config['database']['user_acc']['custom_columns'] = array(
-    'upro_first_name', 'upro_last_name', 'upro_date_registered', 'upro_address_line1', 'upro_address_line2', 'upro_city', 'upro_state', 'upro_headshot_image_id', 'upro_body_image_id', 'upro_race', 'upro_height', 'upro_weight', 'upro_shoe_size', 'upro_shirt_size', 'upro_jacket_size', 'upro_pant_size', 'upro_pet'
+    'upro_first_name', 'upro_last_name', 'upro_date_registered', 'upro_address_line1', 'upro_address_line2', 'upro_city', 'upro_state_id', 'upro_headshot_image_id', 'upro_body_image_id', 'upro_race', 'upro_height', 'upro_weight', 'upro_shoe_size', 'upro_shirt_size', 'upro_jacket_size', 'upro_pant_size', 'upro_pet'
 
     ### Example : 'date_modified', 'modified_user_id' etc.
 );

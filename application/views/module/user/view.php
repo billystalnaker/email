@@ -126,7 +126,7 @@
                                             <?php echo $user['upro_city']; ?>
                                         </td>
                                         <td>
-                                            <?php echo $user['upro_state']; ?>
+                                            <?php echo isset($states[$user['upro_state_id']]) ? $states[$user['upro_state_id']] : 'No State'; ?>
                                         </td>
                                         <td>
                                             <?php echo $user['upro_race']; ?>
@@ -249,7 +249,7 @@
                                 var data = {};
                                 data['user_ids'] = update_manifest_users;
                                 data['manifest_id'] = manifest_id;
-                                $.post(update_user_url, data,function(data){
+                                $.post(update_user_url, data, function (data) {
                                     redirect(data);
                                 });
                             }
