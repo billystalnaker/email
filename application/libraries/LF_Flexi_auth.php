@@ -307,7 +307,6 @@ class LF_Flexi_auth extends LF_Flexi_auth_lite{
     public function forgotten_password($identifier){
         // Get users primary identity.
 		if(!$identity = $this->CI->flexi_auth_model->get_primary_identity($identifier)){
-			var_dump($identity, $identifier);
 			$this->CI->flexi_auth_model->set_error_message('email_forgot_password_unsuccessful', 'config');
             return FALSE;
         }
@@ -334,9 +333,7 @@ class LF_Flexi_auth extends LF_Flexi_auth_lite{
                 'identity' => $identity,
                 'forgotten_password_token' => $forgotten_password_token
             );
-			var_dump($user_data);
 			$template  = $this->CI->auth->email_settings['email_template_directory'].$this->CI->auth->email_settings['email_template_forgot_password'];
-
             if($this->CI->flexi_auth_model->send_email($email_to, $email_title, $user_data, $template)){
                 $this->CI->flexi_auth_model->set_status_message('email_forgot_password_successful', 'config');
                 return TRUE;

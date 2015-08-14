@@ -23,7 +23,7 @@ class Api extends LF_Controller
         }
 
         $this->output
-            ->set_output($ret);
+            ->set_output(json_encode($ret));
     }
 
     public function get_project_tasks()
