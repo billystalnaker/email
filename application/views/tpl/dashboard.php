@@ -229,8 +229,67 @@ if ($is_logged)
                                     <div class="panel-body">
                                         <h3>Add Manifests</h3>
 
-                                        <p>Here you can add manifests.</p>
-                                        <a href="<?php echo site_url('module/manifests/add'); ?>">Add Manifests</a>
+                                        <p>Here you can add manifest.</p>
+                                        <a href="<?php echo site_url('module/manifests/add'); ?>">Add Manifest</a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div><?php
+    }
+    if ($this->flexi_auth->is_privileged('States'))
+    {
+        ?>
+        <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    States
+                </div>
+                <div class="panel-body">
+                    <div class="panel-group" id="state_accordion"><?php
+                        if ($this->flexi_auth->is_privileged('View States'))
+                        {
+                            ?>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#state_accordion" href="#view_state_panel">View</a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse in" id="view_state_panel">
+                                    <div class="panel-body">
+                                        <h3>View States</h3>
+
+                                        <p>Here you can view states.</p>
+                                        <a href="<?php echo site_url('module/states/view'); ?>">View States</a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        if ($this->flexi_auth->is_privileged('Add States'))
+                        {
+                            ?>
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#state_accordion" href="#add_state_panel">Add</a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse" id="add_state_panel">
+                                    <div class="panel-body">
+                                        <h3>Add States</h3>
+
+                                        <p>Here you can add states.</p>
+                                        <a href="<?php echo site_url('module/states/add'); ?>">Add States</a>
                                     </div>
                                 </div>
                             </div>

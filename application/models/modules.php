@@ -250,7 +250,7 @@ class Modules extends LF_Model
                 'upro_address_line2'                              => $this->input->post('update_user_address_line2'),
                 'upro_city'                                       => $this->input->post('update_user_city'),
                 'upro_race'                                       => $this->input->post('update_user_race'),
-                'upro_state_id'                                      => $this->input->post('update_user_state_id'),
+                'upro_state_id'                                   => $this->input->post('update_user_state_id'),
                 'upro_weight'                                     => $this->input->post('update_user_weight'),
                 'upro_height'                                     => $this->input->post('update_user_height'),
                 'upro_shoe_size'                                  => $this->input->post('update_user_shoe_size'),
@@ -553,7 +553,7 @@ class Modules extends LF_Model
                 'upro_address_line2'     => $user_address_line2,
                 'upro_city'              => $user_city,
                 'upro_race'              => $user_race,
-                'upro_state_id'             => $user_state,
+                'upro_state_id'          => $user_state,
                 'upro_weight'            => $weight,
                 'upro_height'            => $height,
                 'upro_shoe_size'         => $shoe_size,
@@ -678,6 +678,17 @@ class Modules extends LF_Model
             return $ret;
         }
         $this->data['manifest'] = $ret;
+    }
+
+    function get_state($state_id, $return = false)
+    {
+        $filters = array('id' => $state_id);
+        $ret = array_shift($this->db->where($filters)->get('states')->result_array());
+        if ($return)
+        {
+            return $ret;
+        }
+        $this->data['state'] = $ret;
     }
 
     /**
@@ -805,6 +816,53 @@ class Modules extends LF_Model
                 }
             }
         }
+        else
+        {
+            $this->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
+        }
+    }
+
+    function update_state($state_id, $ajax = false)
+    {
+        $this->load->library('form_validation');
+
+// Set validation rules.
+        $validation_rules = array(
+            array(
+                'field' => 'update_state_name',
+                'label' => 'Name',
+                'rules' => 'required'),
+        );
+
+        $this->form_validation->set_rules($validation_rules);
+
+        if ($this->form_validation->run())
+        {
+// Get st_light data from input.
+            $data = array();
+            $data['name'] = $this->input->post('update_state_name');
+            $data['abbreviation'] = $this->input->post('update_state_abbreviation');
+
+            $sql_where = array('id' => $state_id);
+            $this->db->update('states', $data, $sql_where);
+
+            if ($this->db->affected_rows() == 1)
+            {
+                $this->flexi_auth_model->set_status_message('update_successful', 'config');
+            }
+            else
+            {
+                $this->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
+            }
+// Save any public or admin status or error messages to CI's flash session data.
+            $this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+            if (!$ajax)
+            {
+// Redirect user.
+                redirect('module/states/view');
+            }
+        }
+
         else
         {
             $this->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
@@ -1087,6 +1145,30 @@ class Modules extends LF_Model
         }
     }
 
+    function update_states()
+    {
+// Delete st_lights.
+        if ($this->flexi_auth->is_privileged('Delete States'))
+        {
+            if ($delete_states = $this->input->post('delete_state'))
+            {
+                foreach ($delete_states as $state_id => $delete)
+                {
+// Note: As the 'delete_privilege' input is a checkbox, it will only be present in the $_POST data if it has been checked,
+// therefore we don't need to check the submitted value.
+                    $sql_where = array('id' => $state_id);
+// Delete privileges.
+                    $this->db->delete('states', $sql_where);
+                }
+// Save any public or admin status or error messages to CI's flash session data.
+                $this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+
+// Redirect user.
+                redirect('module/states/view');
+            }
+        }
+    }
+
     /**
      * insert_user_group
      * Inserts a new user group.
@@ -1207,6 +1289,51 @@ class Modules extends LF_Model
                 return $ret;
             }
             redirect('module/manifests/view');
+        }
+    }
+
+    function insert_state($ajax = false)
+    {
+        $this->load->library('form_validation');
+
+// Set validation rules.
+        $validation_rules = array(
+            array(
+                'field' => 'insert_state_name',
+                'label' => 'Name',
+                'rules' => 'required'),
+        );
+
+        $this->form_validation->set_rules($validation_rules);
+        $ret = false;
+        if ($this->form_validation->run())
+        {
+// Get st_light data from input.
+
+            $data = array();
+            $data['name'] = $this->input->post('insert_state_name');
+            $data['abbreviation'] = $this->input->post('insert_state_abbreviation');
+            $this->db->insert('states', $data);
+
+            $ret = ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
+            if ($ret)
+            {
+                $this->flexi_auth_model->set_status_message('update_successful', 'config');
+            }
+            else
+            {
+                $this->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
+            }
+
+// Save any public or admin status or error messages to CI's flash session data.
+            $this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+
+// Redirect user.
+            if ($ajax)
+            {
+                return $ret;
+            }
+            redirect('module/states/view');
         }
     }
 

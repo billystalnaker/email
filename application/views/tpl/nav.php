@@ -165,8 +165,8 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                    <?php } ?>
-                    <?php if ($this->flexi_auth->is_privileged('Manifests'))
+                    <?php }
+                    if ($this->flexi_auth->is_privileged('Manifests'))
                     { ?>
                         <li>
                             <a href="#"><i class="fa fa-envelope-o"></i> Manifests<span class="fa arrow"></span></a>
@@ -182,6 +182,28 @@
                                 { ?>
                                     <li>
                                         <a href="<?php echo site_url('module/manifests/view'); ?>">View</a>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    <?php }
+                    if ($this->flexi_auth->is_privileged('States'))
+                    { ?>
+                        <li>
+                            <a href="#"><i class="fa fa-map-marker"></i> States<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <?php if ($this->flexi_auth->is_privileged('Add States'))
+                                { ?>
+                                    <li>
+                                        <a href="<?php echo site_url('module/states/add'); ?>">Add</a>
+                                    </li>
+                                <?php } ?>
+
+                                <?php if ($this->flexi_auth->is_privileged('View States'))
+                                { ?>
+                                    <li>
+                                        <a href="<?php echo site_url('module/states/view'); ?>">View</a>
                                     </li>
                                 <?php } ?>
                             </ul>

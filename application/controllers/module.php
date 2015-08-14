@@ -287,6 +287,46 @@ class Module extends LF_Controller
         $this->load->view('tpl/structure', $this->data);
     }
 
+    public function states($action = NULL, $id = NULL)
+    {
+        $action = (!is_null($action)) ? $action : 'view';
+        $id = (!is_null($id)) ? $id : 0;
+        if ($action === 'edit' && $id <= 0)
+        {
+//set flashdata sayign you must have id in order to edit
+            redirect('module/states/view');
+        }
+        if (!$this->flexi_auth->is_privileged('States') || !$this->flexi_auth->is_privileged(ucfirst($action) . ' States'))
+        {
+//set flashdata saying you dont have access to this
+            redirect('home/dashboard');
+        }
+        $this->load->model('modules');
+        $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+        switch ($action)
+        {
+            case 'add':
+                $this->modules->insert_state();
+                $this->data['content'] = $this->load->view('module/state/add', $this->data, true);
+                break;
+            case 'edit':
+                $this->modules->get_state($id);
+                $this->modules->update_state($id);
+                $this->data['content'] = $this->load->view('module/state/edit', $this->data, true);
+                break;
+            case 'view':
+            default:
+                $this->modules->get_states(false, false);
+                $this->modules->update_states();
+// Set any returned status/error messages.
+
+                $this->data['content'] = $this->load->view('module/state/view', $this->data, true);
+                break;
+        }
+        $this->load->view('tpl/structure', $this->data);
+    }
+
+
     public function blast_manifest($manifest_id = NULL)
     {
         $this->load->model('modules');
